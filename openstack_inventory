@@ -1,0 +1,13 @@
+[kafkanodes]
+<node-ip-omi-same> ansible_ssh_private_key_file=<rsa file> private_ip=172.31.14.253 kafka_broker_id=1 kafka_port=9092
+
+[zookeepernodes]
+<node-ip-omi-same> ansible_ssh_private_key_file=<rsa file> zookeeper_id=1 private_ip=172.31.2.78
+
+[rmnode]
+<node-ip-omi-same> ansible_ssh_private_key_file=<rsa file> private_ip=172.31.1.66
+
+[nmnodes]
+<worker-node-1> ansible_ssh_private_key_file=<rsa file> private_ip=172.31.0.167
+<worker-node-2> ansible_ssh_private_key_file=<rsa file> private_ip=172.31.12.8
+<worker-node-3> ansible_ssh_private_key_file=<rsa file> private_ip=172.31.6.21

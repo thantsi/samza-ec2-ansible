@@ -4,11 +4,11 @@
 
 zookeeper_user: zkadmin
 zookeeper_group: zkadmin
-zookeeper_password: $6$rounds=40000$1qjG/hovLZOkcerH$CK4Or3w8rR3KabccowciZZUeD.nIwR/VINUa2uPsmGK/2xnmOt80TjDwbof9rNvnYY6icCkdAR2qrFquirBtT1
+zookeeper_password: <password_change>
 
 kafka_user: kafkaadmin
 kafka_group: kafkaadmin
-kafka_password: $6$rounds=40000$1qjG/hovLZOkcerH$CK4Or3w8rR3KabccowciZZUeD.nIwR/VINUa2uPsmGK/2xnmOt80TjDwbof9rNvnYY6icCkdAR2qrFquirBtT1
+kafka_password: <password_change>
 
 
 # --------------------------------------
@@ -25,8 +25,8 @@ common:
 # KAFKA VARIABLES
 # --------------------------------------
 
-kafka_version: kafka_2.9.2-0.8.2.1
-
+kafka_version: kafka_2.12-2.3.1
+kafka_headless_v: 2.3.1
 
 # Data Storage path on Destination kafka Nodes.
 kafka_data_store: /mnt/data/kafka
@@ -40,7 +40,7 @@ zookeeper_connect:
 # --------------------------------------
 
 # Zookeeper Version.
-zookeeper_version: zookeeper-3.4.5-cdh5.1.2
+zookeeper_version: zookeeper-3.4.13
 
 # Zookeeper Storage and Logging.
 zookeeper_data_store: /mnt/data/zookeeper
@@ -58,9 +58,9 @@ java_home: /usr/local/java/jdk
 
 hadoop_user: hdadmin
 hadoop_group: hdadmin
-hadoop_password: $6$rounds=40000$1qjG/hovLZOkcerH$CK4Or3w8rR3KabccowciZZUeD.nIwR/VINUa2uPsmGK/2xnmOt80TjDwbof9rNvnYY6icCkdAR2qrFquirBtT1
+hadoop_password: <password_change>
 
-hadoop_version: hadoop-2.4.0
+hadoop_version: hadoop-2.7.1
 routing_network_interface: eth1
 ansible_routing_network_interface: ansible_eth1
 hadoop_install_dir: /data/ansible/hadoop
