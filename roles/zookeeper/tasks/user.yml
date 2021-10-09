@@ -3,3 +3,6 @@
   # Create a user to running the zookeeper service.
   - name: Create a User `"{{ zookeeper_user }}"` for all our Hadoop Modules.
     user: name={{ zookeeper_user }} password={{ zookeeper_password }}
+    become: yes
+#    become_method: sudo
+ #   become_user: "{{ zookeeper_user }}"

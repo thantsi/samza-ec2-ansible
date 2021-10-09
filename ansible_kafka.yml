@@ -1,17 +1,16 @@
-#
-# JDK
-#
-
-- hosts: zookeepernodes
+---
+- name: work on zookeeper node/s
+  hosts: zookeepernodes
   remote_user: ubuntu
-  sudo: yes
+
   roles:
     - jdk
     - zookeeper
 
-- hosts: kafkanodes
+- name: work on kafka node/s
+  hosts: kafkanodes
   remote_user: ubuntu
-  sudo: yes
+
   roles:
     - jdk
     - kafka

@@ -1,17 +1,32 @@
 ---
   - name: Creating data directory
     file: path=/mnt/data state=directory
+    become: yes
+
+#  - name: Create conf directory in Zookeeper
+#    file: path={{ common['soft_link_base_path'] }}/zookeeper/conf state=directory
+#    become: yes
 
   # Updating Configuration File in Zookeeper.
   - name: Updating Configuration File in Zookeeper.
-    template: src={{ item }} dest={{ common['soft_link_base_path'] }}/zookeeper/conf/{{ item }}  owner={{ zookeeper_user }} group={{ zookeeper_group }}
+    template: src={{ item }} dest={{ common['soft_link_base_path'] }}/zookeeper/conf/{{ item }} owner={{ zookeeper_user }} group={{ zookeeper_group }}
+    become: yes
     with_items:
-      - zoo.cfg
+      - zoo_sample.cfg
       - log4j.properties
+
+  - name: Rename zoo_sample to zoo
+    copy: remote_src=True src={{ common['soft_link_base_path'] }}/zookeeper/conf/zoo_sample.cfg dest={{ common['soft_link_base_path'] }}/zookeeper/conf/zoo.cfg
+    become: true
+
+  - name: Remove zoo_sample
+    file: path={{ common['soft_link_base_path'] }}/zookeeper/conf/zoo_sample.cfg state=absent
+    become: true
 
   # Creating a directory for Zookeeper.
   - name: Creating a directory for Zookeeper.
     file: path={{ item }} owner={{ zookeeper_user }} group={{ zookeeper_group }} state=directory
+    become: yes
     with_items:
       - "{{ zookeeper_data_store }}"
       - "{{ zookeeper_logging }}"

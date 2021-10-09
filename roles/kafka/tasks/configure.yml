@@ -1,9 +1,11 @@
 ---
   - name: Creating data directory
     file: path=/mnt/data state=directory
+    become: yes
 
   - name: Updating Configuration File in kafka.
     template: src={{ item }} dest={{ common['soft_link_base_path'] }}/kafka/config/{{ item }} owner={{ kafka_user }} group={{ kafka_group }}
+    become: yes
     with_items:
       - server.properties
       - log4j.properties
@@ -11,5 +13,6 @@
 
   - name: Creating a directory for kafka
     file: path={{ kafka_data_store }}/{{ item }} owner={{ kafka_user }} group={{ kafka_group }} state=directory
+    become: yes
     with_items:
       - "{{ kafka_broker_id }}"

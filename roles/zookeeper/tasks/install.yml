@@ -1,16 +1,20 @@
 ---
   # Download Zookeeper
   - name: Download Zookeeper
-    get_url: url=https://archive.apache.org/dist/zookeeper/{{ zookeeper_version }}/{{ zookeeper_version }}.tar.gz dest=/mnt/{{ zookeeper_version }}.tar.gz mode=0644 validate_certs=no
+    get_url: url=https://archive.apache.org/dist/zookeeper/{{ zookeeper_version }}/apache-{{ zookeeper_version }}-bin.tar.gz dest=/mnt/{{ zookeeper_version }}.tar.gz mode=0644 validate_certs=no
+    become: yes
 
   # unarchive - Copy tgz file and extract in destination.
   - name: Copy and UnArchive the Package in Destination Server.
     unarchive: creates={{ common['install_base_path'] }}/{{ zookeeper_version }} src=/mnt/{{ zookeeper_version }}.tar.gz dest={{ common['install_base_path'] }} owner={{ zookeeper_user }} group={{ zookeeper_group }} copy=no
+    become: yes
 
   # Changing permission to directory, setting `zookeeper_user` as the new owner.
   - name: Change Directory Permissions.
     file: path={{ common['install_base_path'] }}/{{ zookeeper_version }} owner={{ zookeeper_user }} group={{ zookeeper_group }} recurse=yes
+    become: yes
 
   # Creating Symbolic link.
   - name: Creating a Symbolic Link in {{ common['install_base_path'] }}/zookeeper.
-    file: src={{ common['install_base_path'] }}/{{ zookeeper_version }} path={{ common['soft_link_base_path'] }}/zookeeper state=link owner={{ zookeeper_user }} group={{ zookeeper_group }}
+    file: src={{ common['install_base_path'] }}/apache-{{ zookeeper_version }}-bin path={{ common['soft_link_base_path'] }}/zookeeper state=link owner={{ zookeeper_user }} group={{ zookeeper_group }}
+    become: yes

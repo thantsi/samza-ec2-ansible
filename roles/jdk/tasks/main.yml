@@ -1,27 +1,23 @@
-#
-# -------------------
-#  JDK Setup
-# -------------------
-#
+- name: "Apt Update"
+  become: true
+  apt: update_cache=yes upgrade=yes force_apt_get=yes cache_valid_time=3600
 
-- hosts: all
-  remote_user: ubuntu
-  sudo: yes
-  vars:
-    java_home: /usr/lib/jvm/java-8-openjdk-amd64/
-  tasks:
-    - name: JDK | Oracle JDK | Make sure openjdk is uninstalled
-      apt: pkg=openjdk-11-jdk state=absent
-    - name: "Apt Update"
-      become: true
-      apt: update_cache=yes upgrade=yes force_apt_get=yes cache_valid_time=3600
-    - name: "Install JDK 8"
-      become: yes
-      apt:
-        name: "openjdk-8-jdk"
-        state: present
-    - name: JDK | Oracle JDK | Add the JDK binaries to the system path (/etc/profile)
-      lineinfile: dest=/etc/profile regexp='^JAVA_HOME={{ java_home }}' line="JAVA_HOME={{ java_home }}" state=present
+- name: Install Java using Ansible
+  become: true
+  apt: name=openjdk-8-jdk state=present
 
-    - name: JDK | Oracle JDK | Add the JDK binaries to the system path (/etc/profile)
-      lineinfile: dest=/etc/profile regexp='^PATH=.*JAVA_HOME.*' line="PATH=$PATH:$HOME/bin:$JAVA_HOME/bin" state=present
+- name: JDK | Oracle JDK | Make a directory that holds the Java binaries
+  become: true
+  file: path=/usr/local/java state=directory
+
+- name: JDK | Oracle JDK | Update the symbolic link to the JDK install
+  become: true
+  file: path={{ java_home }} src=/usr/lib/jvm/java-8-openjdk-amd64 state=link force=yes
+
+- name: JDK | Oracle JDK | Add the JDK binaries to the system path (/etc/profile)
+  become: true
+  lineinfile: dest=/etc/environment regexp='^JAVA_HOME={{ java_home }}' line="export JAVA_HOME={{ java_home }}" state=present
+
+- name: JDK | Oracle JDK | Add the JDK binaries to the system path (/etc/profile)
+  become: true
+  lineinfile: dest=/etc/environment regexp='^PATH=.*JAVA_HOME.*' line="export PATH=/usr/bin:$PATH:$HOME/bin:$JAVA_HOME/bin" state=present
