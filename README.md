@@ -2,9 +2,10 @@
 
 *Command execution order:*
 
-1. ansible-playbook -i openstack_inventory ansible_kafka.yml
-2. ansible-playbook -i openstack_inventory ansible_prepare_yarn.yml
-3. ansible-playbook -i openstack_inventory ansible_yarn.yml
+1. ansible-playbook -i openstack_inventory ansible_hosts.yml
+2. ansible-playbook -i openstack_inventory ansible_kafka.yml
+3. ansible-playbook -i openstack_inventory ansible_prepare_yarn.yml
+4. ansible-playbook -i openstack_inventory ansible_yarn.yml
 
 _Artefact versions:_
 * kafka_version: kafka_2.12-3.0.0
