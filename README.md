@@ -17,8 +17,11 @@ _Artefact versions:_
 - Kafka has some permission issues starting. I have fixed them in the install.yml.
 - Major issue is the version of hadoop. According to this: https://www.morling.dev/blog/bytebuffer-and-the-dreaded-nosuchmethoderror/ i have fixed it manually. The 
 ```hadoop-yarn-common-3.3.1.jar``` needs a rebuild with some changes.
+- Additional issue related to this thread: https://stackoverflow.com/questions/58300578/how-to-fix-resource-changed-on-src-filesystem-issue/58405426#58405426. Fixed and together with the above change, copy the jar ```hadoop-yarn-common-3.3.1.jar``` to {soft_link_base_path}/hadoop/share/hadoop/yarn/hadoop-yarn-common-3.3.1.jar.
 - Also the yarn.properties file is needed to run the samza job.
-- Lessons learned: Package your app and run everything from the yarn resource manager VM.
+- Lessons learned: 
+  -  Package your app and run everything from the yarn resource manager VM.
+  -  Copy you tar.gz app to all the nodes at the specific path in the yarn.properties file (from yarn.package.path).
 
 ```
 yarn.package.path="<your packaged app>-dist.tar.gz"
